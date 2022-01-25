@@ -6,6 +6,8 @@ COPY . /app
 
 WORKDIR /app
 
+RUN pip freeze > requirements.txt
+
 
 # Install python and pip
 RUN pip install -r requirements.txt
