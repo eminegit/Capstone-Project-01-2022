@@ -1,19 +1,8 @@
-# our base image
-FROM python:3.7
-
-# Copy files required for the app to run
-COPY . /app
-
-WORKDIR /app
-
-#RUN pip freeze > requirements.txt
-
-
-# Install python and pip
-RUN pip install -r requirements.txt
-
-# Tell the port number the container should expose
+FROM python:3.8
+RUN pip install --upgrade pip
+WORKDIR /app/
+COPY requirements.txt /app/
+RUN pip --no-cache-dir install -r requirements.txt
+COPY . /app/
 EXPOSE 5000
-
-# Run the application
-CMD ["python","web.py"]
+CMD ["python", "web.py"]
