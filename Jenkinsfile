@@ -25,11 +25,15 @@ pipeline {
                sh 'docker push emined/projectimage'
                }
          }
-         
-         stage('Deploy kubernetes'){
-              steps{
-              sh 'kubectl apply -f deployment.yml'
-              }
+         stage('copy deployment file') {
+               steps {
+               sh "scp -o StrictHostKeyChecking=no deploy.yaml ubuntu@3.219.102.204:/home/ubuntu"
+               }
+         }
+         stage('Deploy k8') {
+               steps {
+               sh 'ssh ubuntu@3.219.102.204 kubectl apply -f deploy.yaml'
+               }
          }
          stage('Testing') {
               steps {
