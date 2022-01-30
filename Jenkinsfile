@@ -27,12 +27,12 @@ pipeline {
          }
          stage('copy deployment file') {
                steps {
-               sh "scp -o StrictHostKeyChecking=no deploy.yaml ubuntu@3.219.102.204:/home/ubuntu"
+               sh "scp -o StrictHostKeyChecking=no deployment.yaml ubuntu@3.219.102.204:/home/ubuntu"
                }
          }
          stage('Deploy k8') {
                steps {
-               sh 'ssh ubuntu@3.219.102.204 kubectl apply -f deploy.yaml'
+               sh 'ssh ubuntu@3.219.102.204 kubectl apply -f deployment.yaml'
                }
          }
          stage('Testing') {
