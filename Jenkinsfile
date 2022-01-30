@@ -27,7 +27,7 @@ pipeline {
          }
          stage('copy deployment file') {
                steps {
-               sh "scp -o StrictHostKeyChecking=no deployment.yml ubuntu@3.219.102.204:/home/ubuntu"
+               sh "scp -o StrictHostKeyChecking=no Deployment.yml ubuntu@3.219.102.204:/home/ubuntu"
                sh "scp -o StrictHostKeyChecking=no Ansible.yml ubuntu@3.219.102.204:/home/ubuntu"
                }
          }
