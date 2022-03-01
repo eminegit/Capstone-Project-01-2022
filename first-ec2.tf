@@ -1,11 +1,25 @@
-provider "aws" {
-  region     = "us-west-2"
-  access_key = ""
-  secret_key = ""
-  }
+pipeline {
+    agent any
 
+    stages {
+        stage('Checkout') {
+            steps {
+            checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/eminegit/Capstone-Project-01-2022']]])            
 
-resource "aws_instance" "emineEC2"{
-  ami = "ami-0341aeea105412b57"
-  instance_type = "t2.micro"
+          }
+        }
+        
+        stage ("terraform init") {
+            steps {
+                sh ('terraform init') 
+            }
+        }
+        
+        stage ("terraform Action") {
+            steps {
+                echo "Terraform action is --> ${action}"
+                sh ('terraform ${action} --auto-approve') 
+           }
+        }
+    }
 }
